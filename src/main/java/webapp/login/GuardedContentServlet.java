@@ -11,6 +11,6 @@ import java.io.IOException;
 public class GuardedContentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().append("Successful!\nThis information is only available to login-in usersapp");
+        resp.sendRedirect("/welcome.html");
     }
 }
