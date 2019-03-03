@@ -1,4 +1,5 @@
-.idea
-\target\
-*.iml
-/.idea/compiler.xml
+.idea\
+target\
+UserWebApp.iml
+.idea/
+target/
