@@ -22,8 +22,14 @@ public class LoginServlet extends HttpServlet {
                 user.setRole(UserRepository.getInstance().getUserRole(user));
                 req.getSession().setAttribute("userObj", user);
                 req.getRequestDispatcher("/welcome.jsp").forward(req,resp);
-            } else resp.sendRedirect("/");
-        } else resp.getWriter().append("User with such login doesn't exist. Try enter correct login");
+            } else {
+                req.setAttribute("authorizationResponse", "Password incorrect");
+                req.getRequestDispatcher("/").forward(req,resp);
+            }
+        } else {
+            req.setAttribute("authorizationResponse", "Login incorrect");
+            req.getRequestDispatcher("/").forward(req,resp);
+        }
     }
 
     @Override
