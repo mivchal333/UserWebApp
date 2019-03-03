@@ -1,4 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="authResult" scope="request" type="webapp.login.AuthorizationResult"
+             class="webapp.login.AuthorizationResult"/>
+
+
 <html lang="en">
 <head>
     <title>Login - UserWebApp</title>
@@ -22,11 +27,19 @@
                 <img src="images/img-01.png" alt="IMG">
             </div>
             <form class="login100-form validate-form" method="post" action="login">
-					<span class="login100-form-title">
-                         <h4>${ authorizationResponse }</h4>
-						Member Login
+                <span class="login100-form-title">
+                    <c:choose>
+                        <c:when test="${not empty authResult.value }">
+                            <jsp:include  page="login-result-box.jsp">
+                                <jsp:param name="msgValue" value="${authResult.value}"/>
+                                <jsp:param name="msgType" value="${authResult.type}"/>
+                            </jsp:include>
+                        </c:when>
+                        <c:otherwise>
+                            Member Login
+                        </c:otherwise>
+                    </c:choose>
 					</span>
-
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="text" name="login" placeholder="Email">
                     <span class="focus-input100"></span>
@@ -34,7 +47,6 @@
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
                 </div>
-
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
                     <input class="input100" type="password" name="password" placeholder="Password">
                     <span class="focus-input100"></span>
@@ -42,7 +54,6 @@
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
                 </div>
-
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn">
                         Login
@@ -58,11 +69,6 @@
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="vendor/select2/select2.min.js"></script>
 <script src="vendor/tilt/tilt.jquery.min.js"></script>
-<script>
-    $('.js-tilt').tilt({
-        scale: 1.1
-    })
-</script>
 <script src="js/main.js"></script>
 </body>
 </html>

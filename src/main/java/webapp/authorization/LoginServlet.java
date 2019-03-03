@@ -2,6 +2,8 @@ package webapp.authorization;
 
 import webapp.User;
 import webapp.UserRepository;
+import webapp.login.AuthorizationResult;
+import webapp.login.AuthorizationResultType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,18 +19,16 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         User user = new User(login, password);
-        if (UserRepository.getInstance().existUser(user)) {
-            if (UserRepository.getInstance().checkPassword(user)) {
-                user.setRole(UserRepository.getInstance().getUserRole(user));
-                req.getSession().setAttribute("userObj", user);
-                req.getRequestDispatcher("/welcome.jsp").forward(req,resp);
-            } else {
-                req.setAttribute("authorizationResponse", "Password incorrect");
-                req.getRequestDispatcher("/").forward(req,resp);
-            }
+        if (UserRepository.getInstance().existUser(user) && UserRepository.getInstance().checkPassword(user)) {
+            user.setRole(UserRepository.getInstance().getUserRole(user));
+            req.getSession().setAttribute("userObj", user);
+            AuthorizationResult authorizationResult = new AuthorizationResult("Successful login", AuthorizationResultType.SUCCESS);
+            req.setAttribute("authResult", authorizationResult);
+            req.getRequestDispatcher("/welcome.jsp").forward(req, resp);
         } else {
-            req.setAttribute("authorizationResponse", "Login incorrect");
-            req.getRequestDispatcher("/").forward(req,resp);
+            AuthorizationResult authorizationResult = new AuthorizationResult("Falied login", AuthorizationResultType.ERROR);
+            req.setAttribute("authResult", authorizationResult);
+            req.getRequestDispatcher("/").forward(req, resp);
         }
     }
 

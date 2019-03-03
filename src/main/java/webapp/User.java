@@ -13,7 +13,7 @@ public class User {
 
     }
 
-    public String getPassword() {
+     String getPassword() {
         return password;
     }
 
@@ -49,6 +49,9 @@ public class User {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    public User() {
     }
 
     @Override
