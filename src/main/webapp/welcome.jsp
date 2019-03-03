@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <h2>Welcome User!</h2>
+    <h2>Welcome ${userObj.login}!</h2>
     <h3>There we have some secret info, available only for logged in user</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis nibh leo, vel ultricies nibh pulvinar sed.
         Quisque vitae leo ultricies, fermentum arcu id, consequat dui. Ut vel massa ante. Vivamus elementum odio vitae

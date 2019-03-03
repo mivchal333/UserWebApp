@@ -13,16 +13,16 @@ import java.io.IOException;
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         User user = new User(login, password);
-        if (UserRepository.existUser(user)) {
-            if (UserRepository.checkPassword(user)) {
-                user.setRole(UserRepository.getUserRole(user));
+        if (UserRepository.getInstance().existUser(user)) {
+            if (UserRepository.getInstance().checkPassword(user)) {
+                user.setRole(UserRepository.getInstance().getUserRole(user));
                 req.getSession().setAttribute("userObj", user);
-                resp.getWriter().append("Logged in successful");
-            } else resp.getWriter().append("Password incorrect");
+                req.getRequestDispatcher("/welcome.jsp").forward(req,resp);
+            } else resp.sendRedirect("/");
         } else resp.getWriter().append("User with such login doesn't exist. Try enter correct login");
     }
 
