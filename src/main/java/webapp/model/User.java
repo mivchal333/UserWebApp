@@ -1,19 +1,31 @@
-package webapp;
+package webapp.model;
+
+import webapp.model.enimeration.Role;
 
 import java.util.Objects;
 
 public class User {
+    private long id;
     private String login;
     private String password;
     private Role role;
 
-    public User(String login, String password) {
+    public User(long id, String login, String password, Role role) {
+        this.id = id;
         this.login = login;
         this.password = password;
-
+        this.role = role;
     }
 
-     String getPassword() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
         return password;
     }
 

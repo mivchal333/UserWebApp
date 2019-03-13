@@ -4,22 +4,7 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
-    <filter>
-        <filter-name>loggedInUserFilter</filter-name>
-        <filter-class>webapp.login.LoggedUserFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>loggedInUserFilter</filter-name>
-        <servlet-name>adminContent</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>loggedInUserFilter</filter-name>
-        <servlet-name>logoutServlet</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>loggedInUserFilter</filter-name>
-        <servlet-name>guardedServlet</servlet-name>
-    </filter-mapping>
-
-
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

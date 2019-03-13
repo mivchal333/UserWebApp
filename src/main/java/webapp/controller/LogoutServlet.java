@@ -1,8 +1,6 @@
-package webapp.authorization;
+package webapp.controller;
 
-
-import webapp.User;
-
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +11,14 @@ import java.io.IOException;
 @WebServlet(name = "logoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
-        User userObj = (User) session.getAttribute("userObj");
-        String login = userObj.getLogin();
-        resp.getWriter().append("Logged out user: ").append(login);
         session.invalidate();
+        req.getRequestDispatcher("/posts").forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         doGet(req, resp);
     }
 }

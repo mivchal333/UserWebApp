@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="authResult" scope="request" type="webapp.login.AuthorizationResult"
-             class="webapp.login.AuthorizationResult"/>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
+<jsp:useBean id="userObj" scope="session" type="webapp.model.User" class="webapp.model.User"/>
 
 
 <html lang="en">
@@ -16,51 +16,33 @@
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/posts.css">
 </head>
 <body>
 <div class="limiter">
-    <div class="container-login100">
-
-        <div class="wrap-login100">
-            <div class="login100-pic js-tilt" data-tilt>
-                <img src="images/img-01.png" alt="IMG">
-            </div>
-            <form class="login100-form validate-form" method="post" action="login">
-                <span class="login100-form-title">
-                    <c:choose>
-                        <c:when test="${not empty authResult.value }">
-                            <jsp:include  page="login-result-box.jsp">
-                                <jsp:param name="msgValue" value="${authResult.value}"/>
-                                <jsp:param name="msgType" value="${authResult.type}"/>
-                            </jsp:include>
-                        </c:when>
-                        <c:otherwise>
-                            Member Login
-                        </c:otherwise>
-                    </c:choose>
-					</span>
-                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="login" placeholder="Email">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
+    <div class="container">
+        <c:choose>
+            <c:when test="${not empty sessionScope.userObj.login }">
+                <div class="container-add-button">
+                    <button class="add-button" onclick="location.href='/add_post.jsp'">
+                        Add Post
+                    </button>
                 </div>
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Password">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
+                <div class="container-login-button">
+                    <button class="login-button" onclick="location.href='/logout'">
+                        Logout
+                    </button>
                 </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn">
+            </c:when>
+            <c:otherwise>
+                <div class="container-login-button">
+                    <button class="login-button" onclick="location.href='/'">
                         Login
                     </button>
                 </div>
-            </form>
-        </div>
+            </c:otherwise>
+        </c:choose>
+        <jsp:include page="posts.jsp"/>
     </div>
 </div>
 

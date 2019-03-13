@@ -1,24 +1,26 @@
-package webapp.authorization;
+package webapp.filter;
 
-import org.apache.commons.lang.StringUtils;
+
+import webapp.model.User;
+import webapp.model.enimeration.Role;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "inputFieldsValidate", servletNames = "loginServlet")
-public class InputFieldsValidationFilter implements Filter {
+@WebFilter(filterName = "adminAccessFilter", servletNames = "adminContent")
+public class AdminAccessFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        if (StringUtils.isNotEmpty(login) && StringUtils.isNotEmpty(password)) {
+        HttpSession session = request.getSession();
+        User userObj = (User) session.getAttribute("userObj");
+        if (Role.ADMIN.equals(userObj.getRole())) {
             filterChain.doFilter(servletRequest, servletResponse);
-        } else servletResponse.getWriter().append("Login or Password input error. Please try again later");
+        } else servletResponse.getWriter().append("ACCES DENIED");
     }
-
 
     @Override
     public void init(FilterConfig filterConfig) {
