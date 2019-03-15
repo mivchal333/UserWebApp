@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/add_page.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 <div class="limiter">
@@ -25,7 +26,7 @@
                 <span class="login100-form-title">
                     <c:choose>
                         <c:when test="${not empty addResult.value }">
-                            <jsp:include  page="result-box.jsp">
+                            <jsp:include page="result-box.jsp">
                                 <jsp:param name="msgValue" value="${addResult.value}"/>
                                 <jsp:param name="msgType" value="${addResult.type}"/>
                             </jsp:include>
@@ -48,8 +49,14 @@
                         Submit
                     </button>
                 </div>
-
             </form>
+            <c:if test="${ addResult.type eq 'SUCCESS' }">
+                <div class="container-login-btn">
+                    <button  class="login-btn" onclick="location.href='/posts'">
+                    Go to posts
+                    </button>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

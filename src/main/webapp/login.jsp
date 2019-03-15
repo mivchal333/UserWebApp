@@ -30,7 +30,7 @@
                 <span class="login100-form-title">
                     <c:choose>
                         <c:when test="${not empty authResult.value }">
-                            <jsp:include  page="result-box.jsp">
+                            <jsp:include page="result-box.jsp">
                                 <jsp:param name="msgValue" value="${authResult.value}"/>
                                 <jsp:param name="msgType" value="${authResult.type}"/>
                             </jsp:include>
@@ -39,7 +39,7 @@
                             Member Login
                         </c:otherwise>
                     </c:choose>
-					</span>
+                </span>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="text" name="email" placeholder="Email">
                     <span class="focus-input100"></span>
@@ -62,7 +62,7 @@
                 <div class="text-center p-t-136">
                     <a class="txt2" href="register.jsp">
                         Create your Account
-                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true" ></i>
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                     </a>
                 </div>
             </form>

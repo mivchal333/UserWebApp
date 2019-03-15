@@ -28,15 +28,15 @@
                         Add Post
                     </button>
                 </div>
-                <div class="container-login-button">
-                    <button class="login-button" onclick="location.href='/logout'">
+                <div class="container-login-btn">
+                    <button class="login-btn" onclick="location.href='/logout'">
                         Logout
                     </button>
                 </div>
             </c:when>
             <c:otherwise>
-                <div class="container-login-button">
-                    <button class="login-button" onclick="location.href='/'">
+                <div class="container-login-btn">
+                    <button class="login-btn" onclick="location.href='/'">
                         Login
                     </button>
                 </div>
