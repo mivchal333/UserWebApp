@@ -3,13 +3,13 @@ package webapp.service;
 import org.apache.commons.lang.StringUtils;
 import webapp.model.Post;
 import webapp.model.User;
-import webapp.model.enimeration.Role;
 import webapp.repository.PostRepository;
 import webapp.util.ValidateResult;
 import webapp.util.ValidateResultType;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 public class PostService {
     private static PostRepository postRepository;
@@ -17,11 +17,7 @@ public class PostService {
 
 
     public List<Post> getPosts() {
-        List<Post> posts = postRepository.getPosts();
-        for (Post post : posts) {
-            post.setUser(new User(1, "admin", "admin123", Role.ADMIN));
-        }
-        return posts;
+        return postRepository.getPosts();
     }
 
     public ValidateResult validatePost(String title, String content) {
@@ -55,5 +51,12 @@ public class PostService {
 
     public void deletePost(String title) {
         postRepository.deletePost(title);
+    }
+
+    public Optional<Post> getPost(String title) {
+        return postRepository.getPost(title);
+    }
+    public User getUser(String title){
+        return postRepository.getUser(title);
     }
 }

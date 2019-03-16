@@ -1,27 +1,29 @@
 package webapp.model;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
 import webapp.model.enimeration.Role;
 
 import java.util.Objects;
 
 public class User {
-    private long id;
+    private String id;
     private String login;
     private String password;
     private Role role;
 
-    public User(long id, String login, String password, Role role) {
+    public User(String id, String login, String password, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,7 +45,6 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(login, user.login);
@@ -69,5 +70,28 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(login);
+    }
+
+    public Document getUserAsDocument() {
+        Document doc = new Document("login", login)
+                .append("password", password)
+                .append("role", role.name());
+        if (Objects.isNull(id)) {
+            doc.append("_id", new ObjectId(id));
+        }
+        return doc;
+    }
+
+    public static User fromDocument(Document doc) {
+        ObjectId id = doc.getObjectId("_id");
+        String login = doc.getString("login");
+        String password = doc.getString("password");
+        Role role = Role.valueOf(doc.getString("role"));
+        User user = new User(login, password, role);
+
+        if (Objects.nonNull(id)) {
+            user.setId(id.toString());
+        }
+        return user;
     }
 }

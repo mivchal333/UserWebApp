@@ -1,19 +1,22 @@
 package webapp.repository;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import org.bson.Document;
+import webapp.config.DbUtil;
 import webapp.model.User;
 import webapp.model.enimeration.Role;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-/*
- * Simple mock for training
- * */
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
+
 public class UserRepository {
 
-    private List<User> users;
     private static UserRepository instance = null;
+    private MongoCollection<Document> users;
 
     public static UserRepository getInstance() {
         if (instance == null) {
@@ -23,38 +26,45 @@ public class UserRepository {
     }
 
     private UserRepository() {
-        users = new ArrayList<>();
-        users.add(new User(1, "user", "user123", Role.USER));
-        users.add(new User(2, "admin", "admin123", Role.ADMIN));
-        users.add(new User(3, "test", "test123", Role.USER));
+        users = DbUtil.getConnection().getCollection("users");
     }
 
-    public List<User> getUsers() {
+    public MongoCollection<Document> getUsers() {
         return users;
     }
 
     public Optional<User> getUserByLoginData(String login, String password) {
-        return users.stream()
-                .filter(user -> user.getLogin().equals(login) && user.getPassword().equals(password))
-                .findFirst();
+
+        Document userDoc = users.find(and(eq("login", login), eq("password", password))).first();
+        if (!Objects.isNull(userDoc)) {
+            User user = User.fromDocument(Objects.requireNonNull(userDoc));
+            return Optional.ofNullable(user);
+        }
+        return Optional.empty();
     }
 
     public Optional<User> getUserByLogin(String login) {
-        return users.stream()
-                .filter(user -> user.getLogin().equals(login))
-                .findFirst();
+        Document userDoc = users.find(Filters.eq("login", login)).first();
+        if (!Objects.isNull(userDoc)) {
+            Optional<User> userOptional = Optional.ofNullable(User.fromDocument(userDoc));
+        }
+        return Optional.empty();
     }
 
     public Role getUserRole(User user) {
-        return users.get(users.indexOf(user)).getRole();
+        Document userDoc = users.find(eq("login", user.getLogin())).first();
+        String roleString = userDoc.getString("role");
+        return Role.valueOf(roleString);
     }
 
     public void save(User user) {
-        users.add(user);
+        if (!userExist(user.getLogin())) {
+            users.insertOne(user.getUserAsDocument());
+        }
     }
 
     public boolean userExist(String login) {
-        return users.stream().anyMatch(user -> user.getLogin().equals(login));
+        return Objects.nonNull(users.find(eq("login", login)).first());
     }
 
 }

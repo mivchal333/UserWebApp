@@ -4,7 +4,6 @@ import webapp.model.User;
 import webapp.model.enimeration.Role;
 import webapp.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -32,9 +31,7 @@ public class UserService {
         return userRepository.getUserByLoginData(login, password);
     }
 
-    public List<User> getUsers() {
-        return userRepository.getUsers();
-    }
+
 
     public Optional<User> getUserByLogin(String login) {
         return userRepository.getUserByLogin(login);

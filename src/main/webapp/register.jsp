@@ -24,27 +24,27 @@
             <div class="login100-pic js-tilt" data-tilt>
                 <img src="images/img-01.png" alt="IMG">
             </div>
-
             <form class="login100-form validate-form" method="post" action="register">
                 <span class="login100-form-title">
-                    <c:if test="${not empty regResult }">
-                        <jsp:include page="result-box.jsp">
-                            <jsp:param name="msgValue" value="${regResult.value}"/>
-                            <jsp:param name="msgType" value="${regResult.type}"/>
-                        </jsp:include>
-                    </c:if>
-
-                    <c:if test="${ regResult.type eq 'SUCCESS' }">
-                        <div class="container-login-btn">
-                            <button class="login-btn" onclick="location.href='/'">
-                                Login
-                            </button>
-                        </div>
-                    </c:if>
-                    <c:if test="${empty regResult}">
-                        Member Register
-                    </c:if>
-					</span>
+                      <c:if test="${not empty regResult and regResult.type eq 'SUCCESS' }">
+                <div class="container-login-btn">
+                    <button class="login-btn" onclick="location.href='/'">
+                       LOGIN
+                    </button>
+                </div>
+                      </c:if>
+                    <c:choose>
+                        <c:when test="${not empty regResult }">
+                            <jsp:include page="result-box.jsp">
+                                <jsp:param name="msgValue" value="${regResult.value}"/>
+                                <jsp:param name="msgType" value="${regResult.type}"/>
+                            </jsp:include>
+                        </c:when>
+                        <c:otherwise>
+                            Member Register
+                        </c:otherwise>
+                    </c:choose>
+                </span>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="text" name="email" placeholder="Email" id="email" required>
                     <span class="focus-input100"></span>
