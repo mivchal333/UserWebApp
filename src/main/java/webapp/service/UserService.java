@@ -23,7 +23,7 @@ public class UserService {
         this.userRepository = UserRepository.getInstance();
     }
 
-    public Role getUserRole(User user){
+    public Role getUserRole(User user) {
         return userRepository.getUserRole(user);
 
     }
@@ -34,5 +34,9 @@ public class UserService {
 
     public List<User> getUsers() {
         return userRepository.getUsers();
+    }
+
+    public Optional<User> getUserByLogin(String login) {
+        return userRepository.getUserByLogin(login);
     }
 }

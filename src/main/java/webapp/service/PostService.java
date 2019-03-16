@@ -9,7 +9,6 @@ import webapp.util.ValidateResult;
 import webapp.util.ValidateResultType;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 public class PostService {
@@ -42,10 +41,7 @@ public class PostService {
 
     public void addPost(String title, String content, HttpSession session) {
         User userObj = (User) session.getAttribute("userObj");
-        Post post = new Post(title, content, new Date());
-        post.setUser(userObj);
-        post.setAuthor(userObj.getLogin());
-        postRepository.addPost(post);
+        postRepository.addPost(title, content, userObj);
     }
 
     public static PostService getInstance() {
@@ -55,5 +51,9 @@ public class PostService {
 
     private PostService() {
         postRepository = PostRepository.getInstance();
+    }
+
+    public void deletePost(String title) {
+        postRepository.deletePost(title);
     }
 }

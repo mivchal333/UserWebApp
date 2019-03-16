@@ -39,6 +39,12 @@ public class UserRepository {
                 .findFirst();
     }
 
+    public Optional<User> getUserByLogin(String login) {
+        return users.stream()
+                .filter(user -> user.getLogin().equals(login))
+                .findFirst();
+    }
+
     public Role getUserRole(User user) {
         return users.get(users.indexOf(user)).getRole();
     }
@@ -50,4 +56,5 @@ public class UserRepository {
     public boolean userExist(String login) {
         return users.stream().anyMatch(user -> user.getLogin().equals(login));
     }
+
 }

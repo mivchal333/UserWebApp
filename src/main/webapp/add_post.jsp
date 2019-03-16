@@ -40,8 +40,8 @@
                     <input class="input50" type="text" name="title" placeholder="Title">
                     <span class="focus-input50"></span>
                 </div>
-                <div class="wrap-input100 validate-input" data-validate="Content must be over 120 characters">
-                    <input class="input100" type="text" name="content" placeholder="Content">
+                <div class="wrap-input-200 validate-input" data-validate="Content must be over 120 characters">
+                    <input class="input200" type="text" name="content" placeholder="Content">
                     <span class="focus-input100"></span>
                 </div>
                 <div class="container-login100-form-btn">

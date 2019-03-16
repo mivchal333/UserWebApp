@@ -11,6 +11,14 @@ public class Post {
 
     private User user;
 
+    public Post(String author, String title, String content, Date date, User user) {
+        this.author = author;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.user = user;
+    }
+
     public User getUser() {
         return user;
     }
@@ -51,9 +59,4 @@ public class Post {
         this.date = date;
     }
 
-    public Post(String title, String content, Date date) {
-        this.title = title;
-        this.content = content;
-        this.date = date;
-    }
 }
