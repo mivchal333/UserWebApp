@@ -77,7 +77,7 @@ public class User {
                 .append("password", password)
                 .append("role", role.name());
         if (Objects.isNull(id)) {
-            doc.append("_id", new ObjectId(id));
+            doc.append("_id", new ObjectId());
         }
         return doc;
     }
@@ -94,4 +94,5 @@ public class User {
         }
         return user;
     }
+
 }

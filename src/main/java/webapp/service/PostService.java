@@ -16,10 +16,6 @@ public class PostService {
     private static PostService instance = null;
 
 
-    public List<Post> getPosts() {
-        return postRepository.getPosts();
-    }
-
     public ValidateResult validatePost(String title, String content) {
         ValidateResult result = new ValidateResult("Post Added :)", ValidateResultType.SUCCESS);
         if (StringUtils.isEmpty(title)) {
@@ -49,14 +45,19 @@ public class PostService {
         postRepository = PostRepository.getInstance();
     }
 
-    public void deletePost(String title) {
-        postRepository.deletePost(title);
+    public void deletePost(String id) {
+        postRepository.deletePost(id);
     }
 
     public Optional<Post> getPost(String title) {
         return postRepository.getPost(title);
     }
-    public User getUser(String title){
-        return postRepository.getUser(title);
+
+    public Optional<User> getUser(String postId) {
+        return postRepository.getUser(postId);
+    }
+
+    public List<Post> getPosts() {
+        return postRepository.getPosts();
     }
 }

@@ -16,7 +16,7 @@
     <div class="wrap">
         <div class="article-title"> ${ post.title }</div>
         <span class="author">
-                ${post.author}, ${post.date}
+                ${post.author}
         </span>
         <link async href="http://fonts.googleapis.com/css?family=Passero%20One"
               data-generated="http://enjoycss.com"
@@ -29,15 +29,17 @@
         </div>
 
         <c:url var="deleteUrl" value="/delete-post">
-            <c:param name="title" value="${post.title}"/>
+            <c:param name="id" value="${post.id}"/>
         </c:url>
+        <c:if test="${ sessionScope.userObj.equals(post.user) }">
+            <div class="text-center p-t-136">
+                <a class="txt2" href="${ deleteUrl }">
+                      Delete post
+                    <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                </a>
+            </div>
+        </c:if>
 
-        <div class="text-center p-t-136">
-            <a class="txt2" href="${ deleteUrl }">
-                Delete post
-                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-            </a>
-        </div>
     </div>
 </c:forEach>
 </body>
