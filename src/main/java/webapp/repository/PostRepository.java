@@ -48,7 +48,6 @@ public class PostRepository {
     }
 
     public Optional<User> getUser(String id) {
-        System.out.println("get user post retpo Id: " + id);
         Optional<Post> post = getPost(id);
         if (post.isPresent()) {
             User user = post.get().getUser();

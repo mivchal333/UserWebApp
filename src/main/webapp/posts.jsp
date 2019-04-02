@@ -34,7 +34,7 @@
         <c:if test="${ sessionScope.userObj.equals(post.user) }">
             <div class="text-center p-t-136">
                 <a class="txt2" href="${ deleteUrl }">
-                      Delete post
+                    Delete post
                     <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                 </a>
             </div>

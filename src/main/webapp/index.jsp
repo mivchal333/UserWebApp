@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="limiter">
-    <div class="container">
+    <div class="container-login100">
         <c:choose>
             <c:when test="${not empty sessionScope.userObj.login }">
                 <div class="container-add-button">

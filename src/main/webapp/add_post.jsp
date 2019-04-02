@@ -22,7 +22,7 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" method="post" action="add-post">
+            <form class="addpost-form validate-form" method="post" action="add-post">
                 <span class="login100-form-title">
                     <c:choose>
                         <c:when test="${not empty addResult.value }">
@@ -32,7 +32,7 @@
                             </jsp:include>
                         </c:when>
                         <c:otherwise>
-                            Post Add
+                            Add Post
                         </c:otherwise>
                     </c:choose>
 					</span>

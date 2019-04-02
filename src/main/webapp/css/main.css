@@ -236,6 +236,9 @@ iframe {
 .login100-form {
     width: 290px;
 }
+.addpost-form {
+    width: 90%;
+}
 
 .login100-form-title {
     font-family: Poppins-Bold;

@@ -27,10 +27,11 @@ public class AddPostServlet extends HttpServlet {
         if (result.getType() == ValidateResultType.ERROR) {
             req.setAttribute("addResult", result);
             req.getRequestDispatcher("/add_post.jsp").forward(req, resp);
+        } else {
+            postService.addPost(title, content, session);
+            req.setAttribute("addResult", result);
+            req.getRequestDispatcher("/add_post.jsp").forward(req, resp);
         }
-        postService.addPost(title, content, session);
-        req.setAttribute("addResult", result);
-        req.getRequestDispatcher("/add_post.jsp").forward(req, resp);
     }
 
     @Override
